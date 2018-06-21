@@ -14,10 +14,11 @@
 	
 	$grab = mysqli_query($mysqli, "SELECT * FROM users WHERE email = '$email';");
 	$id = mysqli_fetch_array($grab);
+	$test_result = $test + "_result";
 	
 	//this can be worked on to make it work dynamically with each test. Otherwise we'll
 	//need to include a copy of this file for every test folder
-	$query = mysqli_query($mysqli, "UPDATE test_results SET '$test'= '$results' WHERE user_id='$id[id]';");
+	$query = mysqli_query($mysqli, "UPDATE test_results SET '$test_result' = '$results' WHERE user_id='$id[id]';");
 	
 	
 ?>
