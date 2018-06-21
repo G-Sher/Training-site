@@ -14,10 +14,9 @@
 	
 	$grab = mysqli_query($mysqli, "SELECT * FROM users WHERE email = '$email';");
 	$id = mysqli_fetch_array($grab);
-	$test_result = $test + "_result";
+	$test_result = $test + "_result"; //this doesn't work, apparently
 	
-	//this can be worked on to make it work dynamically with each test. Otherwise we'll
-	//need to include a copy of this file for every test folder
+	//right now, $test_result is not working. But I need mysql to recognize the damn test that is being changed.
 	$query = mysqli_query($mysqli, "UPDATE test_results SET '$test_result' = '$results' WHERE user_id='$id[id]';");
 	
 	
