@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Part O </title>
+    <link rel="stylesheet" type="text/css" href="../style.css">
+
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<style>
+.row{
+	height:800px;
+	margin:auto;
+	padding: auto;
+}
+.column-sm-12{
+width: 100%;
+}
+.column-sm-6{
+margin: auto;
+width: 50%;
+height: 150px;
+float: left;
+padding-left: 10%;
+padding-right: 5%;
+}
+.question{
+	min-height: 150px;
+	width: 100%;
+}
+.buttons {
+height: 250px;
+}
+.video{
+width: 80%;
+margin-left: 10%;
+margin-top:10%;
+height: auto;
+}
+</style>
+	</head>
+<body>
+<div class="row">
+<div class="col-sm-12">
+<div class="col-sm-3"></div>
+    <div class="grid">
+        <div id="quiz">
+            <h1>Part O: </h1><h2>Professional Conduct of a Security Guard/ Proprietary Private Security Officer </h2>
+            <hr style="margin-bottom: 20px">
+            <p id="progress">Question x of y</p>
+            <div class="question"><h3><p id="question"></p><h3></div>
+            <div class="buttons">
+			<div class="button-row">
+			<div class="column-sm-12">
+			<div class="column-sm-6">
+                <button id="btn0" ><span id="choice0" ></span></button>
+			</div>
+			<div class="column-sm-6">
+                <button id="btn1" ><span id="choice1"></span></button>
+			</div>
+			</div>
+			</div>
+		   <div class="button-row">
+		   <div class="column-sm-12">
+		   		   <div class="column-sm-6">
+    				<button id="btn2" ><span id="choice2"></span></button>
+					</div>
+					<div class="column-sm-6">
+                <button id="btn3" ><span id="choice3"></span></button>
+				</div>
+			</div>	
+			</div>
+            </div>
+
+            <hr style="margin-top: 50px">
+
+        </div>
+    </div>
+	</div>
+	</div>
+
+<script src="../quiz.js"></script>
+<script src="../question.js"></script>
+<script src="app.js"></script>
+<script src="ajaxStuff.js"></script>
+
+</body>
+</html>

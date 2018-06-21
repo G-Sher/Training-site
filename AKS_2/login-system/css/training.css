@@ -1,0 +1,96 @@
+.row {
+	padding: 20px;
+text-align: center;	
+border: solid;
+width: 100%; 
+margin: auto;}
+
+.card {
+height: 250px;
+border: solid;
+border-color: green;
+margin: auto;
+padding: 15px;
+}
+body {
+	color: white;
+}
+a{
+text-decoration: none;
+color: white;
+text-align: center;
+}
+ a:hover {
+color: white;
+text-decoration: none;
+background: black;
+opacity: 0.5;
+}
+
+.complete {
+	padding: 20px;
+text-align: center;	
+border: solid;
+width: 100%; 
+margin: auto;
+color: green;
+border-color: green;
+}
+
+.incomplete{
+	padding: 20px;
+text-align: center;	
+border: solid;
+width: 100%; 
+margin: auto;
+color: red;
+border-color: red;
+}
+.progress{
+	height: auto;
+	margin:auto;
+	width: 100%;
+	padding: 5px;
+	background: black;
+}
+.progress-bar.progress-bar-success {
+	background-color: green;
+}
+.dropup {
+	margin:auto;
+	width: 100%;
+}
+
+.btn.btn-primary.dropdown-toggle{
+	width: 100%;
+	background-color: green;
+}
+.dropdown-menu{
+	width: 100%;
+	background-color: black;
+	color: white;
+	position: relative;
+}
+.col-sm-12{
+	border-color: white;
+		width: 100%;
+padding: 30px;
+}
+.dropdown-menu.show {
+    position: absolute;
+    will-change: transform;
+    top: 0px;
+    left: 0px;
+    transform: translate3d(0px, 30px, 0px);
+	margin: auto;
+}
+.divider{
+
+	background-color: green;
+
+}
+.container{
+	width: 100%;
+	margin: auto;
+}
+

@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" >
+	<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js" integrity="sha384-smHYKdLADwkXOn1EmN1qk/HfnUcbVRZyYmZ4qpPea6sjB/pTJ0euyQp0Mk8ck+5T" crossorigin="anonymous"></script>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" integrity="sha384-WskhaSGFgHYWDcbwN70/dfYBj47jz9qbsMId/iRN3ewGhXQFZCSftd1LZCfmhktB" crossorigin="anonymous">
+
+    <title>Training List</title>
+    <style>
+	.row {
+	padding: 20px;
+text-align: center;	
+border: solid;
+width: 100%; 
+margin: auto;}
+
+.card {
+height: 250px;
+border: solid;
+border-color: green;
+margin: auto;
+padding: 15px;
+align: center;
+}
+
+.card a{
+text-decoration: none;
+color: black;
+}
+
+.card a:hover {
+color: balck;
+background: lightblue;
+opacity: 0.5;
+}
+
+.complete {
+	padding: 20px;
+text-align: center;	
+border: solid;
+width: 100%; 
+margin: auto;
+color: green;
+border-color: green;
+}
+
+.incomplete{
+	padding: 20px;
+text-align: center;	
+border: solid;
+width: 100%; 
+margin: auto;
+color: red;
+border-color: red;
+}
+
+
+    </style>
+</head>
+<body>
+    <h1>Training List</h1>
+    <div class="row">
+        <div class="col-sm-2">
+		<div class="card">
+		<a href="Part A/index.html"><div class="row">Test A</div></a>
+		<div class ="row" >Title</div>
+		<div class ="incomplete" id="test_a_Not Passed">Not Passed</div>
+		
+		</div>
+		</div>
+		
+        <div class="col-sm-2">
+		<div class="card">
+		<a href="Part B/index.html"><div class="row">Test B</div></a>
+		<div class ="row" >Title</div>
+		<div class ="incomplete" id="test_b_Not Passed">Not Passed</div>
+		
+		</div>
+		</div>
+		        <div class="col-sm-2">
+		<div class="card">
+		<a href="Part C/index.html"><div class="row">Test C</div></a>
+		<div class ="row" >Title</div>
+		<div class ="row" id="test_c_Not Passed">Not Passed</div>
+		
+		</div>
+		</div>
+		        <div class="col-sm-2">
+		<div class="card">
+		<a href="Part D/index.html"><div class="row">Test D</div></a>
+		<div class ="row" >Title</div>
+		<div class ="row" id="test_d_Not Passed">Not Passed</div>
+		
+		</div>
+		</div>
+		        <div class="col-sm-2">
+		<div class="card">
+		<a href="Part E/index.html"><div class="row">Test E</div></a>
+		<div class ="row" >Title</div>
+		<div class ="row" id="test_e_Not Passed">Not Passed</div>
+		
+		</div>
+		</div>
+		        <div class="col-sm-2">
+		<div class="card">
+		<a href="Part F/index.html"><div class="row">Test F</div></a>
+		<div class ="row" >Title</div>
+		<div class ="row" id="test_f_Not Passed">Not Passed</div>
+		
+		</div>
+		</div>
+		        
+
+    </div>
+    <div class="row">
+        <div class="col-sm-2">
+		<div class="card">
+		<a href="Part G/index.html"><div class="row">Test G</div></a>
+		<div class ="row" >Title</div>
+		<div class ="row" id="test_g_Not Passed">Not Passed</div>
+		
+		</div>
+		</div>
+		
+        <div class="col-sm-2">
+		<div class="card">
+		<a href="Part H/index.html"><div class="row">Test H</div></a>
+		<div class ="row" >Title</div>
+		<div class ="row" id="test_h_Not Passed">Not Passed</div>
+		
+		</div>
+		</div>
+		        <div class="col-sm-2">
+		<div class="card">
+		<a href="Part I/index.html"><div class="row">Test I</div></a>
+		<div class ="row" >Title</div>
+		<div class ="row" id="test_i_Not Passed">Not Passed</div>
+		
+		</div>
+		</div>
+		        <div class="col-sm-2">
+		<div class="card">
+		<a href="Part J/index.html"><div class="row">Test J</div></a>
+		<div class ="row" >Title</div>
+		<div class ="row" id="test_j_Not Passed">Not Passed</div>
+		
+		</div>
+		</div>
+		        <div class="col-sm-2">
+		<div class="card">
+		<a href="Part K/index.html"><div class="row">Test K</div></a>
+		<div class ="row" >Title</div>
+		<div class ="row" id="test_k_Not Passed">Not Passed</div>
+		
+		</div>
+		</div>
+		        <div class="col-sm-2">
+		<div class="card">
+		<a href="Part L/index.html"><div class="row">Test L</div></a>
+		<div class ="row" >Title</div>
+		<div class ="row" id="test_l_Not Passed" >Not Passed</div>
+		
+		</div>
+		</div>
+		        
+
+    </div>
+	    <div class="row">
+		<div class="col-sm-2"><div class="card"><a href="Part M/index.html"><div class="row">Test M</div></a>
+<div class ="row" >Title</div><div class ="row" id="test_m_Not Passed">Not Passed</div></div></div>
+		
+        <div class="col-sm-2"><div class="card">		<a href="Part N/index.html"><div class="row">Test N</div></a>
+<div class ="row" >Title</div><div class ="row" id="test_n_Not Passed">Not Passed</div></div></div>
+		        
+		<div class="col-sm-2"><div class="card">		<a href="Part O/index.html"><div class="row">Test O</div></a>
+<div class ="row" >Title</div><div class ="row" id="test_o_Not Passed">Not Passed</div>
+		</div></div>		        
+
+    </div>
+</body>
+</html>

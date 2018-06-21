@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Secure Checkout | Valley Guard Online</title>
+<meta name="robots" content="noindex, nofollow">
+<link href="test2.css" rel="stylesheet">
+<script src="https://js.stripe.com/v3/"></script>
+<script src="https://secure.comodo.com/trustlogo/javascript/trustlogo.js"></script>
+<script type="text/javascript">var apikey = 'pk_live_Si1icLNxaeSBuafkj7JHuDdM';</script>
+<link href="https://www.valleyguardonline.com/favicon.ico" rel="icon">
+<meta name="csrf-param" content="_csrf">
+<meta name="csrf-token" content="iTOlyrWOdqWJycf-UqF4IoTkQhGB91FxmNOdLJqrxzgOMXAsK-tpcDEJXNtFLuKk_hp2vrcCGyaG537GmC_RUg==">
+<!--[if lte IE 9]>
+<script src="https://www.valleyguardonline.com/js/ie-update-alert.js"></script>
+<![endif]-->
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-47864022-1', 'valleyguardonline.com');ga('send', 'pageview');
+</script>
+<!-- Start Alexa Certify Javascript -->
+<script>
+_atrk_opts = { atrk_acct:"Ce16o1QolK10fn", domain:"valleyguardonline.com",dynamic: true};
+(function() { var as = document.createElement('script'); as.type = 'text/javascript'; as.async = true; as.src = "https://d31qbv1cthcecs.cloudfront.net/atrk.js"; var s = document.getElementsByTagName('script')[0];s.parentNode.insertBefore(as, s); })();
+</script>
+<noscript><img src="https://d5nxst8fruw4z.cloudfront.net/atrk.gif?account=Ce16o1QolK10fn" style="display:none" height="1" width="1" alt="" /></noscript>
+<!-- End Alexa Certify Javascript -->
+</head>
+<body class="checkout checkout-course">
+<header role="banner">
+<div class="inner">
+<p>Questions? Call Us <span>(818) 989-7825</span> <strong>Secure Checkout</strong></p>
+<img alt="Valley Guard Online" src="https://www.valleyguardonline.com/images/checkout-header-logo.png" srcset="https://www.valleyguardonline.com/images/checkout-header-logo-2x.png 2x">
+</div>
+</header>
+<article role="main">
+<form id="checkout" action="https://www.valleyguardonline.com/checkout/course?course%5B%5D=119&course%5B%5D=118" method="post" novalidate>
+<input type="hidden" name="_csrf" value="iTOlyrWOdqWJycf-UqF4IoTkQhGB91FxmNOdLJqrxzgOMXAsK-tpcDEJXNtFLuKk_hp2vrcCGyaG537GmC_RUg==">
+<div class="left">
+<p>Already have an account? <a id="login-link" href="https://www.valleyguardonline.com/login">Log In</a></p>
+<fieldset id="account-section">
+<h2>Create your account</h2>
+<div class="form-group">
+<label for="cartcourse-first_name">First Name</label>
+<input type="text" id="cartcourse-first_name" name="CartCourse[first_name]" maxlength="75">
+<small></small>
+</div>
+<div class="form-group">
+<label for="cartcourse-last_name">Last Name</label>
+<input type="text" id="cartcourse-last_name" name="CartCourse[last_name]" maxlength="75">
+<small></small>
+</div>
+<div class="form-group">
+<label for="cartcourse-email">Email</label>
+<input type="text" id="cartcourse-email" name="CartCourse[email]" maxlength="75">
+<small></small>
+</div>
+<div class="form-group">
+<label for="cartcourse-password">Create Password (at least 8 characters)</label>
+<input type="text" id="cartcourse-password" name="CartCourse[password]">
+<small></small>
+</div>
+</fieldset>
+<fieldset id="payment-method-section">
+<h2>Choose payment method</h2>
+<div class="cc">
+<input id="type-cc" type="radio" name="CartCourse[payment_type]" value="cc" checked>
+<label for="type-cc">Credit Card</label>
+</div>
+<div class="pp">
+<input id="type-pp" type="radio" name="CartCourse[payment_type]" value="pp">
+<label for="type-pp">PayPal</label>
+</div>
+<input id="type-no" type="radio" name="CartCourse[payment_type]" value="no">
+</fieldset>
+<fieldset id="credit-card-section">
+<div class="form-group">
+<label for="cartcourse-name_on_card">Name On Card</label>
+<input type="text" id="cartcourse-name_on_card">
+<small></small>
+</div>
+<div class="form-group">
+<label for="card-element">Card Details</label>
+<div id="card-element" data-model-name="CartCourse"></div>
+<small></small>
+</div>
+</fieldset>
+</div>
+<div id="product-list">
+<h2>Order summary</h2>
+<table>
+<tbody>
+    <tr>
+<td class="product">Advanced Arrest, Search &amp; Seizure Class</td>
+<td class="price">$20</td>
+</tr>
+    <tr>
+<td class="product">Officer Safety Class</td>
+<td class="price">$20</td>
+</tr>
+    <tr id="gift-code" data-original-total="40.00">
+<td>Gift Certificate Code</td>
+<td class="price">- $<span></span></td>
+</tr>
+<tr class="total">
+<td colspan="2">Total: <span>$<span>40</span></span></td>
+</tr>
+</tbody>
+</table>
+<p class="gift-code-toggle"><a id="show-gift-code" href="#" tabIndex="-1">Redeem a gift certificate <span>&rarr;</span></a></p>
+<div class="gift-code">
+<div class="status"></div>
+<label for="gift_code">Enter Gift Certificate Code</label>
+<input type="text" id="cartcourse-gift_code" name="CartCourse[gift_code]">
+<a id="gift-code-btn" class="button" href="#">Apply</a>
+</div>
+<button type="submit" class="big">Check Out</button>
+<div id="secure-seals">
+<div>
+<script>
+TrustLogo('https://www.valleyguardonline.com/images/checkout-comodo-secured.gif', 'CL1', 'none');
+</script>
+</div>
+<div>
+<a target="_blank" href="https://www.mcafeesecure.com/verify?host=www.valleyguardonline.com"><img alt="McAfee Secure" src="//cdn.ywxi.net/meter/www.valleyguardonline.com/101.gif" width="125" height="55"></a>
+</div>
+</div>
+</div>
+</form>
+<div id="modal">
+<div class="confirm-account">
+<p>Is this correct?</p>
+<table>
+<tr>
+<td class="field">Email:</td><td id="confirm-email"></td>
+</tr>
+<tr>
+<td class="field">Password:</td><td id="confirm-password"></td>
+</tr>
+</table>
+<div class="actions">
+<span class="no">No</span> <span class="yes">Yes</span>
+</div>
+</div>
+</div>
+</article>
+<footer role="contentinfo">
+<div class="inner">
+<p>&copy;2018 Valley Guard Online. All Rights Reserved. <a href="https://www.valleyguardonline.com/privacy-policy">Privacy Policy</a> / <a href="https://www.valleyguardonline.com/terms-of-use">Terms of Use</a> / <a href="https://www.valleyguardonline.com/contact">Contact</a></p>
+</div>
+</footer>
+<script src="test2.js"></script>
+<script src="test22.js"></script>
+<script src="checkout.js"></script>
+
+</body>
+</html>
