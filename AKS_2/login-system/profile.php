@@ -47,7 +47,9 @@ require 'db.php';
 	  echo "<meta charset='UTF-8'>";
 	  echo "<title>Welcome $first_name" . " $last_name </title>"; //fixed, was saying "Welcome = firstname' 'lastname
 	   include 'css/css.html'; 
+	   include 'js/bootstrap.html';
 	   echo "<link rel='stylesheet' href='css/training.css' >"; 
+	   echo "<link rel='stylesheet' href='css/style.css'>";
 	echo "</head>";
 
 	echo "<body>";
@@ -105,6 +107,11 @@ for ($i = $letterarray[0]; $i < $letterarray[$complete_count+1] ; $i++){
 	}
 	echo "</ul></div>";
 }
+
+
+
+
+
  if ($complete_count >= $column_count){	
 		echo "<a href='http://www.bsis.ca.gov/industries/g_train.shtml' target = '_blank'><button class='button button-block' name='review'/>Exam Review</button></a>";	 
 		echo "<a href='#finalexam'><button class='button button-block' name='test'/>FINAL EXAM</button></a>";
