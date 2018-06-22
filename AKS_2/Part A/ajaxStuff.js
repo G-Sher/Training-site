@@ -2,7 +2,7 @@ function ajaxStuff(){
 	jQuery.ajax({
 			type: "POST",
 			url: "../login-system/update.php",
-			data: 'results=1&test="A"',
+			data: 'results=1&test=A_result',
 			cache:false,
 			success: function(response)
 			{

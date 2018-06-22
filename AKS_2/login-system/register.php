@@ -11,8 +11,6 @@ $_SESSION['last_name'] = $_POST['lastname'];
 $_SESSION['result'] = 0 ;
 
 // Escape all $_POST variables to protect against SQL injections.
-//this is doing the same thing that it was before, but the new objects I've found easier to work with
-//when making multiple queries on the database. 
 $first_name = mysqli_real_escape_string($mysqli,$_POST['firstname']);
 $last_name = mysqli_real_escape_string($mysqli,$_POST['lastname']);
 $email = mysqli_real_escape_string($mysqli,$_POST['email']);
