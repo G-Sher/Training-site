@@ -11,6 +11,5 @@
 	$grab = mysqli_query($mysqli, "SELECT * FROM users WHERE email = '$email';");
 	$id = mysqli_fetch_array($grab);
 
-	//right now, $test_result is not working. But I need mysql to recognize the damn test that is being changed.
 	$query = mysqli_query($mysqli, "UPDATE test_results SET ".$test." = '$results' WHERE user_id='$id[id]';");
 ?>
