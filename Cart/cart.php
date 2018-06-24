@@ -1,179 +1,55 @@
 <?php
-session_start();
-$product_ids = array();
-$discount_basket = array();
-$no_discount = array();
-function checkForDiscount($value, $key){
-		echo "Key is ".$key."<br>";
-	echo "Value is ".$value."<br>";
 
-	if($key == 'id'){
-		if ($value == 2 || $value == 4 || $value == 6){
-			echo "This basket will apply a discount to smaller baskets<br>";
-			//array_merge($discount_basket);
-		}
-		
-		else {
-			echo "This basket will NOT apply a discount to smaller baskets<br>";
-			//array_merge($value,$no_discount);
-		}
-}
-echo "<br>";
-
-}
-function apply_discount($product){
-	array_search($product);
-	
-}
-
-//check if Add to Cart button has been submitted
-if(filter_input(INPUT_POST, 'add_to_cart')){
-
-    if(isset($_SESSION['shopping_cart'])){
-        
-        //keep track of how many products are in the shopping cart
-        $count = count($_SESSION['shopping_cart']);
-
-        //create sequantial array for matching array keys to products id's
-        $product_ids = array_column($_SESSION['shopping_cart'], 'id');
-
-
-
-}
-
-        if (!in_array(filter_input(INPUT_GET, 'id'), $product_ids)){
-
-        $_SESSION['shopping_cart'][$count] = array
-            (
-                'id' => filter_input(INPUT_GET, 'id'),
-                'name' => filter_input(INPUT_POST, 'name'),
-                'price' => filter_input(INPUT_POST, 'price'),
-                'quantity' => filter_input(INPUT_POST, 'quantity')
-
-            );   
-
-        }
-
-        else { //product already exists, increase quantity
-            //match array key to id of the product being added to the cart
-
-            for ($i = 0; $i < count($product_ids); $i++){														//
-                if ($product_ids[$i] == filter_input(INPUT_GET, 'id')){
-                    //add item quantity to the existing product in the array
-                    $_SESSION['shopping_cart'][$i]['quantity'] += filter_input(INPUT_POST, 'quantity');
-                }
-
-            }
-
-        }
-
-
-    }
-    else { //if shopping cart doesn't exist, create first product with array key 0
-        //create array using submitted form data, start from key 0 and fill it with values
-
-        $_SESSION['shopping_cart'][0] = array
-        (
-            'id' => filter_input(INPUT_GET, 'id'),
-            'name' => filter_input(INPUT_POST, 'name'),
-            'price' => filter_input(INPUT_POST, 'price'),
-            'quantity' => filter_input(INPUT_POST, 'quantity')
-        );
-
-    }
-
-
-if(filter_input(INPUT_GET, 'action') == 'delete'){
-    //loop through all products in the shopping cart until it matches with GET id variable
-    foreach($_SESSION['shopping_cart'] as $key => $product){
-        if ($product['id'] == filter_input(INPUT_GET, 'id')){
-            //remove product from the shopping cart when it matches with the GET id
-            unset($_SESSION['shopping_cart'][$key]);
-									
-
-        }
-    }
-    //reset session array keys so they match with $product_ids numeric array
-    $_SESSION['shopping_cart'] = array_values($_SESSION['shopping_cart']);
-}
-
-//pre_r($_SESSION);
-
-function pre_r($array){
-    echo '<pre>';
-    print_r($array);
-    echo '</pre>';
-}
+require "scDB.php";
+include "scFunctions.php";
 ?>
-	<!DOCTYPE html>
-	<html>
-
-	<head>
-		<title>Shopping Cart</title>
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
-		<link rel="stylesheet" href="cart.css" />
-
-		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
-	</head>
 	
-	<body>
+<!DOCTYPE html>
+<html>
 
-		<div class="container-fluid">
-			<?php
+<head>
+	<title>Shopping Cart</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" />
+	<link rel="stylesheet" href="cart.css" />
 
-		//enter connection information on line 100
-		//$connect = mysqli_connect('localhost', 'username', 'password' ,'databasename');
-        $connect = mysqli_connect('localhost', 'root', '' ,'cart');
-		
-		//remove the table each time since this is a test
-		$sql = "DROP TABLE products";
-		$connect->query($sql);
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+</head>
+	
+<body>
 
-		$sql = "CREATE TABLE IF NOT EXISTS products (id int(11) NOT NULL AUTO_INCREMENT, name varchar(100) NOT NULL, image varchar(100) NOT NULL, price float NOT NULL, PRIMARY KEY (id))";
-		$connect->query($sql);
-
-		$sql = "INSERT INTO products(id, name, price, image) VALUES
-		('2', 'Small Basket with Apples', '19.99', 'basket1.jpg'),
-		('1', 'Small Basket', 18.99, 'basket4.jpg'),
-		('4', 'Medium Basket with Apples', 24.99, 'basket1.jpg'),
-		('3', 'Medium Basket', 23.99, 'basket4.jpg'),
-		('6', 'Large Basket with Apples', 29.99, 'basket1.jpg'),
-		('5', 'Large Basket', 28.99, 'basket4.jpg')";
-		$connect->query($sql);
-		
-        $query = 'SELECT * FROM products ORDER by id ASC';
-        $result = mysqli_query($connect, $query);
-
-        if ($result):
-            if(mysqli_num_rows($result)>0):
-                while($product = mysqli_fetch_assoc($result)):
-                ?>
-				<div class="col-sm-4 col-md-3">
-					<form method="post" action="cart.php?action=add&id=<?php echo $product['id']; ?>">
-						<div class="products">
-							<img src="<?php echo $product['image']; ?>" class="img-responsive" />
-							<h4 class="text-info">
-								<?php echo $product['name']; ?>
-							</h4>
-							<h4>$
-								<?php echo $product['price']; ?>
-							</h4>
-							<input type="text" name="quantity" class="form-control" value="1" />
-							<input type="hidden" name="name" value="<?php echo $product['name']; ?>" />
-							<input type="hidden" name="price" value="<?php echo $product['price']; ?>" />
-							<input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-info" value="Add to Cart" />
-						</div>
-					</form>
-				</div>
-				<?php
-                endwhile;
-            endif;
-        endif;   
+	<div class="container-fluid">
+		<?php
+				
+			$query = mysqli_query($mysqli, "SELECT * FROM products ORDER by id ASC");
+				
+				if(mysqli_num_rows($query)>0):
+					while($product = mysqli_fetch_assoc($query)):
         ?>
+			<div class="col-sm-4 col-md-3">
+				<form method="post" action="cart.php?action=add&id=<?php echo $product['id']; ?>">
+					<div class="products">
+						<img src="<?php echo $product['image']; ?>" class="img-responsive" />
+						<h4 class="text-info">
+							<?php echo $product['name']; ?>
+						</h4>
+						<h4>$
+							<?php echo $product['price']; ?>
+						</h4>
+						<input type="text" name="quantity" class="form-control" value="1" />
+						<input type="hidden" name="name" value="<?php echo $product['name']; ?>" />
+						<input type="hidden" name="price" value="<?php echo $product['price']; ?>" />
+						<input type="submit" name="add_to_cart" style="margin-top:5px;" class="btn btn-info" value="Add to Cart" />
+					</div>
+				</form>
+			</div>
+			<?php
+               endwhile;
+           endif;  
+       ?>
 
-			<div style="clear:both"></div>
+		<div style="clear:both"></div>
 <!-- 					<div class="banner">
 						<div>
 							Enter the promo code
