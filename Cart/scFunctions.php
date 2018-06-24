@@ -3,7 +3,6 @@ session_start();
 $product_ids = array();
 $discount_basket = array();
 $no_discount = array();
-include "scDB.php";
 
 function checkForDiscount($value, $key){
 		echo "Key is ".$key."<br>";
@@ -31,54 +30,54 @@ function removeFromCart()
 {
 
 	//Runs when the user presses the remove from cart button
+        if(isset($_GET['id']))
+        {
+        
+            $productID = $_GET['id'];
 
-	if(isset($_GET['id']))
-	{
-	
-		$productID = $_GET['id'];
-
-		//Check if the product exists within the cart if so follow on
-		if(array_key_exists($productID, $_SESSION['shopping_cart']))
-		{
-		
-			//Remove one from the total quantity of products set in the cart
-			$newQty = $_SESSION['shopping_cart'][$productID]['quantity'] - 1;
-			
-			//Update the cart quantity
-			$_SESSION['shopping_cart'][$productID]['quantity'] = $newQty;
-			
-			//If there are less than 1 in the qty subkey then remove the product from the cart
-			if($newQty < 1)
-			{
-				
-				//Remove the product from the cart
-				unset($_SESSION['shopping_cart'][$productID]);
-			
-			}
-			
-			//No Product with that ID redirect and display message
-			notify('Removed 1 item from the cart.', 1);
-			header('Location: cart.php');
-		
-		}
-		else
-		{
-		
-			//No Product with that ID redirect and display message
-			notify('Sorry but there is no product with that ID.', 0);
-			header('Location: cart.php');
-		
-		}
-	
-	}
-	else
-	{
-		
-		//No Product with that ID redirect and display message
-		notify('Sorry but there is no product with that ID.', 0);
-		header('Location: cart.php');
-	
-	}
+            //Check if the product exists within the cart if so follow on
+            if(array_key_exists($productID, $_SESSION['shopping_cart']))
+            {
+            
+                //Remove one from the total quantity of products set in the cart
+                $newQty = $_SESSION['shopping_cart'][$productID]['quantity'] - 1;
+                
+                //Update the cart quantity
+                $_SESSION['shopping_cart'][$productID]['quantity'] = $newQty;
+                
+                //If there are less than 1 in the qty subkey then remove the product from the cart
+                if($newQty < 1)
+                {
+                    
+                    //Remove the product from the cart
+                    unset($_SESSION['shopping_cart'][$productID]);
+                
+                }
+                
+                //No Product with that ID redirect and display message
+                notify('Removed 1 item from the cart.', 1);
+                header('Location: cart.php');
+            
+            }
+            else
+            {
+            
+                //No Product with that ID redirect and display message
+                notify('Sorry but there is no product with that ID.', 0);
+                header('Location: processorder.php');
+            
+            }
+        
+        }
+    
+    else
+    {
+            
+        //No Product with that ID redirect and display message
+        notify('Sorry but there is no product with that ID.', 0);
+        header('Location: scFunctions.php');
+        
+    }
 
 }
 
@@ -120,10 +119,15 @@ function getShoppingCart()
                         <td>'.$product['name'].'</td>
                         <td>$'.number_format($product['price'], 2).'</td>
                         <td>'.$product['quantity'].'</td>
-                        <td><a href="addToCart.php?ID='.$product['id'].'">Add</a><a href="removeFromCart.php?ID='.$product['id'].'">Remove</a></td>
+                        <td>
+                            <form method="post" action="addToCart.php?id='.$product['id'].'">
+                                <a href="addToCart.php?id='.$product['id'].'">Add</a>
+                            </form>
+                            <form method="post" action="removeFromCart.php?id='.$product['id'].'"> 
+                                <input type="submit" class="btn btn-danger" value="Remove"><span class="glyphicon glyphicon-remove"></span></input></td>
+                            </form>
                         <input type="hidden" name="amount_'.$count.'" value="'.$product['price'].'" />
                         <input type="hidden" name="quantity_'.$count.'" value="'.$product['quantity'].'" />
-                        
                         <input type="hidden" name="item_name_'.$count.'" value="'.stripslashes($product['name']).'" />
                         <input type="hidden" name="item_number_'.$count.'" value="'.$product['id'].'" />
                     </tr>
@@ -162,7 +166,7 @@ function getShoppingCart()
                 
                 </table>
             </div>	
-		<input type="submit" name="submit" id="submit" value="Checkout with PayPal" />
+		    <input type="submit" name="submit" id="submit" value="Checkout with PayPal" />
 			
 			';
 			
@@ -219,7 +223,7 @@ function insertToCart($productID, $productName, $price, $qty = 1)
 		$newTotal = $_SESSION['shopping_cart'][$productID]['quantity'] + $qty;
 		
 		//Update the product quantity with the new total of products
-		$_SESSION['shopping_cart'][$productID]['qantity'] = $newTotal;
+		$_SESSION['shopping_cart'][$productID]['quantity'] = $newTotal;
 	}
 	else
 	{
@@ -234,7 +238,7 @@ function insertToCart($productID, $productName, $price, $qty = 1)
 
 function addToCart()
 {
-
+    include "scDB.php";
 	//Function for adding a product to the cart based on that products ID.
 
 	//Check if the ID variable is set
@@ -242,10 +246,10 @@ function addToCart()
 	{
 	
 		//Escape the string from the URL
-		$ID = $db->real_escape_string($_GET['id']);
+		$ID = mysqli_real_escape_string($mysqli, $_GET['id']);
 	
 		//Check if the ID passed exists within the database
-		$result = $db->query('SELECT * FROM products WHERE ID = "'.$ID.'" LIMIT 1');
+		$result = mysqli_query($mysqli, 'SELECT * FROM products WHERE ID = "'.$ID.'" LIMIT 1');
 		
 		//If the product ID exists in the database then insert it to the cart
 		if($result->num_rows > 0)

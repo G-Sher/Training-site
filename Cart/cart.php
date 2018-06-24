@@ -32,7 +32,7 @@ include "scFunctions.php";
 							
 							<!-- Loop through the products and display them on the page -->
 					<div class="col-sm-4 ">
-						<form method="post" action="cart.php?action=add&id=<?php echo $product['id']; ?>">
+						<form method="post" action="addToCart.php?id=add&id=<?php echo $product['id']; ?>">
 							<div class="products">
 								<img src="<?php echo $product['image']; ?>" class="img-responsive" />
 								<h4 class="text-info">
@@ -59,8 +59,7 @@ include "scFunctions.php";
 			
 						<!-- Create shopping cart as a table -->
 			<div class="col-sm-3">
-				<div class="table-responsive">
-					<form name="paypalCheckout" method= "get">
+					<form name="paypalCheckout" method= "post">
 						<input type="HIDDEN" name="business" value="Stiff@gmail.com">
 						<input type="HIDDEN" name="cmd" value="_cart">
 						<input type="HIDDEN" name="upload" value="1">
@@ -70,7 +69,6 @@ include "scFunctions.php";
 
 						<?php getShoppingCart(); ?>
 					</form>
-				</div>
 			</div>
 		</div>
 
