@@ -2,8 +2,8 @@
 require "scDB.php";
 include "scFunctions";
 ?>
-	<!DOCTYPE html>
-	<html>
+!DOCTYPE html>
+<html>
 
 	<head>
 		<title>Shopping Cart</title>
@@ -24,10 +24,8 @@ include "scFunctions";
 		
 						$query = mysqli_query($mysqli, "SELECT * FROM products ORDER by id ASC");
 						
-
-						if ($result):
-							if(mysqli_num_rows($result)>0):
-								while($product = mysqli_fetch_assoc($result)):
+						if(mysqli_num_rows($query)>0):
+							while($product = mysqli_fetch_assoc($query)):
                 	?>
 
 					<div class="col-sm-4 ">
@@ -50,70 +48,68 @@ include "scFunctions";
 				
 				<?php
 							endwhile;
-						endif;
-					endif;   
+						endif;   
         		?>
 
 				</div>
 			</div>
-				<div class="col-sm-3">
-					<div class="table-responsive">
-						<table class="table">
-							<tr>
-								<th colspan="5">
-									<h3>Order Details</h3>
-								</th>
-							</tr>
-							<tr>
-								<th width="10%">Product Name</th>
-								<th width="10%">Quantity</th>
-								<th width="10%">Price</th>
-								<th width="10%">Total</th>
-								<th width="10%">Action</th>
-							</tr>
+			<div class="col-sm-3">
+				<div class="table-responsive">
+					<table class="table">
+						<tr>
+							<th colspan="5">
+								<h3>Order Details</h3>
+							</th>
+						</tr>
+						<tr>
+							<th width="10%">Product Name</th>
+							<th width="10%">Quantity</th>
+							<th width="10%">Price</th>
+							<th width="10%">Total</th>
+							<th width="10%">Action</th>
+						</tr>
 
-							<?php   
+						<?php   
 							if(!empty($_SESSION['shopping_cart'])):  
-								
 								$total = 0;  
 								
-								foreach($_SESSION['shopping_cart'] as $key => $product): 
-							?>
+							foreach($_SESSION['shopping_cart'] as $key => $product): 
+						?>
 
-							<tr>
-								<td>
-									<?php echo $product['name']; ?>
-								</td>
-								<td>
-									<?php echo $product['quantity']; ?>
-								</td>
-								<td>$
-									<?php echo $product['price']; ?>
-								</td>
-								<td>$
-									<?php echo number_format($product['quantity'] * $product['price'], 2); ?>
-								</td>
-								<td>
-									<a href="cart.php?action=delete&id=<?php echo $product['id']; ?>">
-										<div class="btn-danger">Remove</div>
-									</a>
-								</td>
-							</tr>
+						<tr>
+							<td>
+								<?php echo $product['name']; ?>
+							</td>
+							<td>
+								<?php echo $product['quantity']; ?>
+							</td>
+							<td>$
+								<?php echo $product['price']; ?>
+							</td>
+							<td>$
+								<?php echo number_format($product['quantity'] * $product['price'], 2); ?>
+							</td>
+							<td>
+								<a href="cart.php?action=delete&id=<?php echo $product['id']; ?>">
+									<div class="btn-danger">Remove</div>
+								</a>
+							</td>
+						</tr>
 
-							<?php  
-									$total = $total + ($product['quantity'] * $product['price']);  
-								endforeach; 
-							?>
+						<?php  
+								$total = $total + ($product['quantity'] * $product['price']);  
+							endforeach; 
+						?>
 
-							<tr>
-								<td colspan="3" align="right">Total</td>
-								<td align="left">
-									<strong>$
-										<?php echo number_format($total, 2); ?>
-									</strong>
-								</td>
+						<tr>
+							<td colspan="3" align="right">Total</td>
+							<td align="left">
+								<strong>$
+									<?php echo number_format($total, 2); ?>
+								</strong>
+							</td>
 								<td></td>
-							</tr>
+						</tr>
 <!-- 							<tr>
 								<td colspan="4" align="right">
 									<form method="POST">Enter Discount Code:
@@ -130,32 +126,27 @@ include "scFunctions";
 							<tr>
 -->
 								<!-- Show checkout button only if the shopping cart is not empty -->
+						<tr>
+							<td colspan="5" align="right">
+								<?php 
+									if (isset($_SESSION['shopping_cart'])):
+									if (count($_SESSION['shopping_cart']) > 0):
+								?>
 
-								<td colspan="5" align="right">
-									<?php 
-                if (isset($_SESSION['shopping_cart'])):
-                if (count($_SESSION['shopping_cart']) > 0):
-             ?>
-
-									<a href="#"class="button"  name="checkout" >Checkout</a>
-									<?php endif; endif; ?>
-								</td>
-							</tr>
-							<?php  
-        endif;
-
-    
-
-        ?>
-						</table>
-						
-					</div>
+								<a href="#"class="button"  name="checkout" >Checkout</a>
+								<?php endif; endif; ?>
+							</td>
+						</tr>
+								<?php  
+       								 endif;
+        						?>
+					</table>
+				</div>
+			</div>
 		</div>
 
 <!-- TEST PHP ARRAY CONTENTS -->
 <?php
-
 ?>
 	</body>
-
-	</html>
+</html>
