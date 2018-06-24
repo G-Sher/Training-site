@@ -60,7 +60,7 @@ include "scFunctions.php";
 						<!-- Create shopping cart as a table -->
 			<div class="col-sm-3">
 				<div class="table-responsive">
-					<form name="paypalCheckout" method= "post">
+					<form name="paypalCheckout" method= "get">
 						<input type="HIDDEN" name="business" value="Stiff@gmail.com">
 						<input type="HIDDEN" name="cmd" value="_cart">
 						<input type="HIDDEN" name="upload" value="1">

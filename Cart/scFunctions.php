@@ -3,6 +3,7 @@ session_start();
 $product_ids = array();
 $discount_basket = array();
 $no_discount = array();
+include "scDB.php";
 
 function checkForDiscount($value, $key){
 		echo "Key is ".$key."<br>";
@@ -19,7 +20,6 @@ function checkForDiscount($value, $key){
 			//array_merge($value,$no_discount);
 		}
 }
-echo "<br>";
 
 }
 function apply_discount($product){
@@ -32,10 +32,10 @@ function removeFromCart()
 
 	//Runs when the user presses the remove from cart button
 
-	if(isset($_POST['id']))
+	if(isset($_GET['id']))
 	{
 	
-		$productID = $_POST['id'];
+		$productID = $_GET['id'];
 
 		//Check if the product exists within the cart if so follow on
 		if(array_key_exists($productID, $_SESSION['shopping_cart']))
@@ -81,78 +81,6 @@ function removeFromCart()
 	}
 
 }
-//check if Add to Cart button has been submitted
-if(filter_input(INPUT_POST, 'add_to_cart')){
-
-    if(isset($_SESSION['shopping_cart'])){
-        
-        //keep track of how many products are in the shopping cart
-        $count = count($_SESSION['shopping_cart']);
-
-        //create sequantial array for matching array keys to products id's
-        $product_ids = array_column($_SESSION['shopping_cart'], 'id');
-
-
-
-}
-
-        if (!in_array(filter_input(INPUT_GET, 'id'), $product_ids)){
-
-        $_SESSION['shopping_cart'][$count] = array
-            (
-                'id' => filter_input(INPUT_GET, 'id'),
-                'name' => filter_input(INPUT_POST, 'name'),
-                'price' => filter_input(INPUT_POST, 'price'),
-                'quantity' => filter_input(INPUT_POST, 'quantity')
-
-            );   
-
-        }
-
-        else { //product already exists, increase quantity
-            //match array key to id of the product being added to the cart
-
-            for ($i = 0; $i < count($product_ids); $i++){														//
-                if ($product_ids[$i] == filter_input(INPUT_GET, 'id')){
-                    //add item quantity to the existing product in the array
-                    $_SESSION['shopping_cart'][$i]['quantity'] += filter_input(INPUT_POST, 'quantity');
-                }
-
-            }
-
-        }
-
-
-    }
-    else { //if shopping cart doesn't exist, create first product with array key 0
-        //create array using submitted form data, start from key 0 and fill it with values
-
-        $_SESSION['shopping_cart'][0] = array
-        (
-            'id' => filter_input(INPUT_GET, 'id'),
-            'name' => filter_input(INPUT_POST, 'name'),
-            'price' => filter_input(INPUT_POST, 'price'),
-            'quantity' => filter_input(INPUT_POST, 'quantity')
-        );
-
-    }
-
-
-if(filter_input(INPUT_GET, 'action') == 'delete'){
-    //loop through all products in the shopping cart until it matches with GET id variable
-    foreach($_SESSION['shopping_cart'] as $key => $product){
-        if ($product['id'] == filter_input(INPUT_GET, 'id')){
-            //remove product from the shopping cart when it matches with the GET id
-            unset($_SESSION['shopping_cart'][$key]);
-									
-
-        }
-    }
-    //reset session array keys so they match with $product_ids numeric array
-    $_SESSION['shopping_cart'] = array_values($_SESSION['shopping_cart']);
-}
-
-//pre_r($_SESSION);
 
 function pre_r($array){
     echo '<pre>';
@@ -162,7 +90,9 @@ function pre_r($array){
 
 function getShoppingCart()
 {
-	    //Function creates the display for the cart
+        //Function creates the display for the cart
+    if(cartExists())
+    {
 		//Check if there are any products in the cart by counting the array keys
 		if(count($_SESSION['shopping_cart']) > 0)
 		{
@@ -239,11 +169,136 @@ function getShoppingCart()
 			echo $html;
 		
 		}
-
+    }
 	else
 	{
 		//If there are no products then print out a message saying there are no products
 		echo '<p>There are currently no products in your cart.</p>';
 	}
+}
+
+function cartExists()
+{
+
+	//Function returns a bool depending wheather the paypal cart is set or not
+
+	if(isset($_SESSION['shopping_cart']))
+	{
+	
+		//Exists
+		return true;
+	
+	}
+	else
+	{
+		
+		//Doesn't exist
+		return false;
+	
+	}
+
+}
+
+function createCart()
+{
+
+	//Create a new cart as a session variable with the value being an array
+	$_SESSION['shopping_cart'] = array();
+
+}
+
+function insertToCart($productID, $productName, $price, $qty = 1)
+{
+
+	//Function is run when a user presses an add to cart button
+
+	//Check if the product ID exists in the paypal cart array
+	if(array_key_exists($productID, $_SESSION['shopping_cart']))
+	{
+		//Calculate new total based on current quantity
+		$newTotal = $_SESSION['shopping_cart'][$productID]['quantity'] + $qty;
+		
+		//Update the product quantity with the new total of products
+		$_SESSION['shopping_cart'][$productID]['qantity'] = $newTotal;
+	}
+	else
+	{
+		//If the product doesn't exist in the cart array then add the product
+		$_SESSION['shopping_cart'][$productID]['id'] = $productID;
+		$_SESSION['shopping_cart'][$productID]['name'] = $productName;
+		$_SESSION['shopping_cart'][$productID]['price'] = $price;
+		$_SESSION['shopping_cart'][$productID]['quantity'] = $qty;
+	
+	}
+}
+
+function addToCart()
+{
+
+	//Function for adding a product to the cart based on that products ID.
+
+	//Check if the ID variable is set
+	if(isset($_GET['id']))
+	{
+	
+		//Escape the string from the URL
+		$ID = $db->real_escape_string($_GET['id']);
+	
+		//Check if the ID passed exists within the database
+		$result = $db->query('SELECT * FROM products WHERE ID = "'.$ID.'" LIMIT 1');
+		
+		//If the product ID exists in the database then insert it to the cart
+		if($result->num_rows > 0)
+		{
+		
+			while($row = $result->fetch_object())
+			{
+			
+				//Check if the cart exists
+				if(cartExists())
+				{
+					
+					//The cart exists so just add it to the cart
+					insertToCart($ID, $row->name, $row->price);
+				
+				}
+				else
+				{
+				
+					//The cart doesn't exist so create the cart
+					createCart();
+					
+					//The cart is now created so add the product to the cart
+					insertToCart($ID, $row->name, $row->price);
+				
+				}
+			
+			}
+		
+		}
+		else
+		{
+			
+			//No products were found in the database so notify the user, redirect him and stop the code from continuing
+			notify('Sorry but there is no product with that ID.', 0);
+			header('Location: cart.php');
+			break;
+		
+		}
+	
+		//The product was successfully added so set the notification and redirect to the cart page
+		notify('Product added to the cart.', 1);
+		header('Location: cart.php');
+	
+	}
+	else
+	{
+		
+		//No Product with that ID redirect and display message
+		notify('Sorry but there is no product with that ID.', 0);
+		header('Location: cart.php');
+	
+	}
+
 }
 ?>
