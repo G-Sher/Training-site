@@ -1,8 +1,9 @@
 <?php
+//create, populate, connect to DB
 require "scDB.php";
-include "scFunctions";
+include "scFunctions.php";
 ?>
-!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 
 	<head>
@@ -21,13 +22,15 @@ include "scFunctions";
 				<div class="container-fluid">
 					
 					<?php
-		
+						//query DB for products, place them into array
 						$query = mysqli_query($mysqli, "SELECT * FROM products ORDER by id ASC");
 						
+						// if everything works
 						if(mysqli_num_rows($query)>0):
 							while($product = mysqli_fetch_assoc($query)):
                 	?>
-
+							
+							<!-- Loop through the products and display them on the page -->
 					<div class="col-sm-4 ">
 						<form method="post" action="cart.php?action=add&id=<?php echo $product['id']; ?>">
 							<div class="products">
@@ -53,6 +56,8 @@ include "scFunctions";
 
 				</div>
 			</div>
+			
+						<!-- Create shopping cart as a table -->
 			<div class="col-sm-3">
 				<div class="table-responsive">
 					<table class="table">
@@ -77,18 +82,10 @@ include "scFunctions";
 						?>
 
 						<tr>
-							<td>
-								<?php echo $product['name']; ?>
-							</td>
-							<td>
-								<?php echo $product['quantity']; ?>
-							</td>
-							<td>$
-								<?php echo $product['price']; ?>
-							</td>
-							<td>$
-								<?php echo number_format($product['quantity'] * $product['price'], 2); ?>
-							</td>
+							<td><?php echo $product['name']; ?></td>
+							<td><?php echo $product['quantity']; ?></td>
+							<td>$<?php echo $product['price']; ?></td>
+							<td>$<?php echo number_format($product['quantity'] * $product['price'], 2); ?></td>
 							<td>
 								<a href="cart.php?action=delete&id=<?php echo $product['id']; ?>">
 									<div class="btn-danger">Remove</div>
