@@ -9,14 +9,14 @@ function sendMail()
     $_SESSION['first_name'] = $_POST['firstname'];
     $_SESSION['last_name'] = $_POST['lastname'];
     $_SESSION['result'] = 0 ;
+    $_SESSION['hash'] = $_POST['hash'];
 
     $first_name = $_SESSION['first_name'];
 	$last_name = $_SESSION['last_name'];
 	$email = $_SESSION['email'];
 	$active = $_SESSION['active'];
     $_SESSION['message'] = ""; 
-    $hash = mysqli_query("SELECT * FROM users WHERE email = '$email'");
-    $array = mysqli_fetch_array($hash);
+    $hash = $_SESSION['hash'];
 
 	$to      = $email;
 	$subject = 'Account Verification (geoffsher.com )';
@@ -27,7 +27,7 @@ function sendMail()
 	Thank you for signing up!
 	Please click this link to activate your account:
 
-	http://geoffsher.com/login-system/verify.php?email='.$email.'&hash='.$array[hash];  
+	http://geoffsher.com/login-system/verify.php?email='.$email.'&hash='.$hash;  
     
     mail( $to, $subject, $message_body, $headers );
 

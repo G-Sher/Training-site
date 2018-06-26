@@ -48,19 +48,20 @@ else { // Email doesn't already exist in a database, proceed...
 					"Confirmation link has been sent to $email, please verify
 					 your account by clicking on the link in the message!";
 					 
-			$to      = $email;
-			$subject = 'Account Verification (geoffsher.com )';
-			$headers = 'From: geoff@geoffsher.com' . "\r\n";
-			$message_body = '
-				Hello '.$first_name.',
-					
-				Thank you for signing up!
-				Please click this link to activate your account:
-					
-				http://geoffsher.com/login-system/verify.php?email='.$email.'&hash='.$hash;  
+		//	$to      = $email;
+		//	$subject = 'Account Verification (geoffsher.com )';
+		//	$headers = 'From: geoff@geoffsher.com' . "\r\n";
+		//	$message_body = '
+		//		Hello '.$first_name.',
+		//			
+		//		Thank you for signing up!
+		//		Please click this link to activate your account:
+		//			
+		//		http://geoffsher.com/login-system/verify.php?email='.$email.'&hash='.$hash;  
 					 
-			mail($to, $subject, $message_body, $headers );
-				 
+		//	mail($to, $subject, $message_body, $headers );
+			
+			sendMail();		 
 			header("location: profile.php"); 
 			
 	//	}
