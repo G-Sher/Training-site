@@ -3,6 +3,7 @@
    and sends account confirmation email message
  */
 require 'db.php';
+include 'mail.php';
 
 // Set session variables to be used on profile.php page
 $_SESSION['email'] = $_POST['email'];
@@ -47,21 +48,9 @@ else { // Email doesn't already exist in a database, proceed...
 					
 					 "Confirmation link has been sent to $email, please verify
 					 your account by clicking on the link in the message!";
-
-			// Send registration confirmation link (verify.php)
-			$to      = $email;
-			$subject = 'Account Verification ( clevertechie.com )';
-			$headers = 'From: robzilla2113@gmail.com' . "\r\n";
-			$message_body = '
-			Hello '.$first_name.',
-
-			Thank you for signing up!
-
-			Please click this link to activate your account:
-
-			http://localhost/login-system/verify.php?email='.$email.'&hash='.$hash;  
-			mail( $to, $subject, $message_body, $headers );
-
+				
+					 sendMail();
+			
 			header("location: profile.php"); 
 	//	}
     }
