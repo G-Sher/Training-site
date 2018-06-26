@@ -17,7 +17,12 @@ include "scFunctions.php";
 	</head>
 	
 	<body>
-		<div class="row">
+		<div class= "row" style= "margin-top: 50px">
+			<div class= "col-sm-4"></div>
+			<div class= "col-sm-4"><h2 style= "align-text: center">Choose a Certification</h2></div>
+			<div class="col-sm-4"></div>
+		</div>
+		<div class="row" style= "margin-top: 20px">
 			<div class="col-sm-9">
 				<div class="container-fluid">
 					

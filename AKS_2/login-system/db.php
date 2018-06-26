@@ -1,9 +1,9 @@
 <?php
 /* Database connection settings */
 $host = 'localhost';
-$user = 'thesnugg_user';
-$pass = 'phitins26';
-$db = 'thesnugg_accounts';
+$user = 'root';
+$pass = '';
+$db = 'accounts';
 //switched to class because i felt like it was easier to work with than the array.
 $mysqli = mysqli_connect($host,$user,$pass,$db);
 

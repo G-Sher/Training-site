@@ -2,7 +2,7 @@
 /* Displays user information and some useful messages */
 session_start();
 require 'db.php';
-include 'mail.php';
+//include 'mail.php';
 // Check if user is logged in using the session variable
 //if($_SESSION['result'] = 0){
 //	newUserState();
@@ -73,10 +73,7 @@ include 'mail.php';
 				  '<div class="info">
 				  Account is unverified, please confirm your email by clicking
 				  on the email link!
-				  </div>
-				  <div>
-					  <a href= "'.sendMail().'">Resend E-mail</a>
-					</div>';
+				  </div>';
 			  }
 
 			  echo "<h2>" .$first_name. " " .$last_name. "</h2>";
