@@ -75,7 +75,7 @@ include 'mail.php';
 				  on the email link!
 				  </div>
 				  <div>
-					  <a href= "sendMail();">Resend E-mail</a>
+					  <a href= "'.sendMail().'">Resend E-mail</a>
 					</div>';
 			  }
 
