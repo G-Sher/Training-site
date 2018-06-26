@@ -3,7 +3,6 @@
    and sends account confirmation email message
  */
 require 'db.php';
-include 'mail.php';
 
 // Set session variables to be used on profile.php page
 $_SESSION['email'] = $_POST['email'];
@@ -41,35 +40,30 @@ else { // Email doesn't already exist in a database, proceed...
 	
     // Add user to the database
     if ($sql){
-
-			$_SESSION['active'] = 0; //0 until user activates their account with verify.php
+		$_SESSION['active'] = 0; //0 until user activates their account with verify.php
 			$_SESSION['logged_in'] = true; // So we know the user has logged in
 			$_SESSION['message'] =
 					"Confirmation link has been sent to $email, please verify
 					 your account by clicking on the link in the message!";
 					 
-		//	$to      = $email;
-		//	$subject = 'Account Verification (geoffsher.com )';
-		//	$headers = 'From: geoff@geoffsher.com' . "\r\n";
-		//	$message_body = '
-		//		Hello '.$first_name.',
-		//			
-		//		Thank you for signing up!
-		//		Please click this link to activate your account:
-		//			
-		//		http://geoffsher.com/login-system/verify.php?email='.$email.'&hash='.$hash;  
-					 
-		//	mail($to, $subject, $message_body, $headers );
-			
-			sendMail();		 
-			header("location: profile.php"); 
-			
-	//	}
+			$to      = $email;
+			$subject = 'Account Verification (geoffsher.com )';
+			$headers = 'From: geoff@geoffsher.com' . "\r\n";
+			$message_body = '
+				Hello '.$first_name.',
+					
+				Thank you for signing up!
+				Please click this link to activate your account:
+					
+				http://geoffsher.com/login-system/verify.php?email='.$email.'&hash='.$hash;  
+				 
+			mail($to, $subject, $message_body, $headers );
+				 
+			header("location: profile.php"); 		
     }
 
     else {
         $_SESSION['message'] = 'Registration failed!';
         header("location: error.php");
     }
-
 }

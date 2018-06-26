@@ -122,7 +122,7 @@ for ($i = $letterarray[0]; $i < $letterarray[$complete_count+1] ; $i++){
 	
 }// only show the test button for final exam if all other quizzes have been passed.
 			  echo "<br><br><br><br><a href='logout.php'><button class='button button-block' name='logout'/>Log Out</button></a>";
-
+			  echo "<br><br><br><br><a href='../Cart/cart.php'><button class='button button-block' name='logout'/>Shopping Cart</button></a>";
 		echo "</div>";
 		
 	echo "<script src='http://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.3/jquery.min.s'></script>";
