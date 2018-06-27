@@ -16,10 +16,12 @@ include "scFunctions.php";
 		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 	</head>
 	
-	<body>
+	<body style= "background-color: #fffff";>
 		<div class= "row" style= "margin-top: 50px">
 			<div class= "col-sm-4"></div>
-			<div class= "col-sm-4"><h2 style= "align-text: center">Choose a Certification</h2></div>
+			<div class= "col-sm-4">
+				<h2>Choose a Certification</h2>
+			</div>
 			<div class="col-sm-4"></div>
 		</div>
 		<div class="row" style= "margin-top: 20px">
@@ -64,21 +66,20 @@ include "scFunctions.php";
 			
 						<!-- Create shopping cart as a table -->
 			<div class="col-sm-3">
-					<form name="paypalCheckout" method= "post">
-						<input type="HIDDEN" name="business" value="Stiff@gmail.com">
-						<input type="HIDDEN" name="cmd" value="_cart">
-						<input type="HIDDEN" name="upload" value="1">
-						<input type="HIDDEN" name="currency_code" value="USD">
-						<input type="HIDDEN" name="lc" value="4">
-						<input type="HIDDEN" name="return" value="">
-
-						<?php getShoppingCart(); ?>
-					</form>
+				<form class= "paypal" method= "post" action="payments.php" id="paypal_form" target="_blank">
+					<input type="hidden" name="cmd" value="_xclick" />
+					<input type="hidden" name="no_note" value="1" />
+					<input type="hidden" name="lc" value="US" />
+					<input type="hidden" name="currency_code" value="USD" />
+					<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
+					<input type="hidden" name="first_name" value="Customer's First Name" />
+					<input type="hidden" name="last_name" value="Customer's Last Name" />
+					<input type="hidden" name="payer_email" value="customer@example.com" />
+					<input type="hidden" name="item_number" value="123456" / >
+					<?php getShoppingCart(); ?>
+					<input type="submit" name="submit" value="Submit Payment"/>
+				</form>
 			</div>
 		</div>
-
-<!-- TEST PHP ARRAY CONTENTS -->
-<?php
-?>
 	</body>
 </html>

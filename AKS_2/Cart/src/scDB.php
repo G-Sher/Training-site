@@ -3,7 +3,7 @@
 $host = 'localhost';
 $user = 'root';
 $pass = '';
-$db = 'shoppingCart';
+$db = 'accounts';
 //switched to class because i felt like it was easier to work with than the array.
 $mysqli = mysqli_connect($host,$user,$pass,$db);
 

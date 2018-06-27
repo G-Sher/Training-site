@@ -31,6 +31,8 @@ SET time_zone = "+00:00";
 DROP TABLE IF EXISTS `test_results`;
 CREATE TABLE IF NOT EXISTS `test_results` (
 `user_id` varchar(25) NOT NULL,
+'purchased' tinyint(1) NOT NULL DEFAULT '0',
+'totalPassed' int(25) NOT NULL DEFAULT '0',
 `A_result` tinyint(1) NOT NULL DEFAULT '0',
 `B_result` tinyint(1) NOT NULL DEFAULT '0',
 `C_result` tinyint(1) NOT NULL DEFAULT '0',
