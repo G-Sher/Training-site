@@ -114,8 +114,7 @@ function getShoppingCart()
                     </tr>
                 </tbody>
                 </table>
-            </div>	
-		    <input type="submit" name="submit" id="submit" value="Checkout with PayPal" />
+            </div>
 			
 			';
 			
