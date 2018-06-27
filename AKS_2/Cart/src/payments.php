@@ -1,10 +1,6 @@
 <?php
 
-// Database variables
-$host = "localhost"; //database location
-$user = ""; //database username
-$pass = ""; //database password
-$db_name = ""; //database name
+include 'scDB.php';
 
 // PayPal settings
 $paypal_email = 'user@domain.com';

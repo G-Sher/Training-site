@@ -2,6 +2,11 @@
 //create, populate, connect to DB
 require "scDB.php";
 include "scFunctions.php";
+//session_start();
+
+$email = $_SESSION['email'];
+$query = mysqli_query($mysqli, "SELECT * FROM users WHERE email = '$email'");
+$user = mysqli_fetch_array($query);
 ?>
 <!DOCTYPE html>
 <html>
@@ -72,9 +77,9 @@ include "scFunctions.php";
 					<input type="hidden" name="lc" value="US" />
 					<input type="hidden" name="currency_code" value="USD" />
 					<input type="hidden" name="bn" value="PP-BuyNowBF:btn_buynow_LG.gif:NonHostedGuest" />
-					<input type="hidden" name="first_name" value="Customer's First Name" />
-					<input type="hidden" name="last_name" value="Customer's Last Name" />
-					<input type="hidden" name="payer_email" value="customer@example.com" />
+					<input type="hidden" name="first_name" value="<?php $user['first_name'] ?>" />
+					<input type="hidden" name="last_name" value="<?php $user['last_name'] ?>" />
+					<input type="hidden" name="payer_email" value="<?php $user['email'] ?> " />
 					<input type="hidden" name="item_number" value="123456" / >
 					<?php getShoppingCart(); ?>
 					<input type="submit" name="submit" value="Submit Payment"/>
