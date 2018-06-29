@@ -1,5 +1,6 @@
 <?php
 session_start();
+
 $product_ids = array();
 $discount_basket = array();
 $no_discount = array();
@@ -98,7 +99,7 @@ function getShoppingCart()
                         <td></td>
                         <td></td>
                         <td class="bold">Subtotal</td>
-                        
+                        <td>'.  calculateSubtotal() .'</td>
                     </tr>
                     <tr>
                         <td></td>
@@ -109,7 +110,8 @@ function getShoppingCart()
                     <tr>
                         <td></td>
                         <td></td>
-                        <td class="bold">Total</td>
+						<td class="bold">Total</td>
+						<td>'. calculateTotal() .'</td>
                         
                     </tr>
                 </tbody>
@@ -119,7 +121,7 @@ function getShoppingCart()
 			';
 			
 			echo $html;
-		
+			
 		}
     }
 	else
@@ -306,6 +308,67 @@ function removeFromCart()
         header('Location: scFunctions.php');
         
     }
+
+}
+
+function calculateSubtotal()
+{
+
+	//Set the base variable for the subtotal
+	$subtotal = 0;
+
+	//Loop through the products in the cart
+	foreach($_SESSION['shopping_cart'] as $product)
+	{
+		
+		//Get the total amount of the current product iteration
+		$qty = $product['quantity'];
+		
+		//Get the price of the current product iteration
+		$price = $product['price'];
+		
+		//Calculate the subtotal
+		$subtotal = $subtotal + ($price * $qty);
+	
+	}
+	
+	//Create the formatted result for the subtotal
+	$result = '$'.number_format($subtotal, 2);
+	
+	return $result;
+
+}
+
+function calculateTotal()
+{
+	//Set the base variable for the total
+	$total = 0;
+	
+	//Loop through the products in the cart
+	foreach($_SESSION['shopping_cart'] as $product)
+	{
+	
+		//Get the total amount of the current product iteration
+		$qty = $product['quantity'];
+		
+		//Get the price of the current product iteration
+		$price = $product['price'];
+		
+		//Calculate the total
+		$total = $total + ($price * $qty);
+		
+	}
+	
+	//Calculate the tax based on the tax variable
+	
+	
+	//Set the total price including tax
+	
+	$_SESSION['total'] = $total;
+	//Create the formatted result for the total
+	$result = '$'.number_format($total, 2);
+	
+	return $result;
 
 }
 ?>

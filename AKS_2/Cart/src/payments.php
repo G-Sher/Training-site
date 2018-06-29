@@ -1,18 +1,20 @@
 <?php
 
+// Include Functions and DB connection
 include 'scDB.php';
+include("functions.php");
+session_start();
 
 // PayPal settings
-$paypal_email = 'user@domain.com';
-$return_url = 'http://domain.com/payment-successful.html';
-$cancel_url = 'http://domain.com/payment-cancelled.html';
-$notify_url = 'http://domain.com/payments.php';
+$paypal_email = 'GSher2512@gmail.com';
+$return_url = 'http://geoffsher.com/success.html';
+$cancel_url = 'http://geoffsher.com/cancel.html';
+$notify_url = 'http://geoffsher.com/payments.php';
+$total = $_SESSION['total'];
 
-$item_name = 'Test Item';
-$item_amount = 5.00;
+$item_name = 'Shopping Cart Total';
+$item_amount = $total;
 
-// Include Functions
-include("functions.php");
 
 // Check if paypal request or response
 if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])){
@@ -44,13 +46,9 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])){
     // Redirect to paypal IPN
     header('location:https://www.sandbox.paypal.com/cgi-bin/webscr'.$querystring);
     exit();
-} else {
-    //Database Connection
-    $link = mysql_connect($host, $user, $pass);
-    mysql_select_db($db_name);
-
+} else{
     // Response from Paypal
-
+    
     // read the post from PayPal system and add 'cmd'
     $req = 'cmd=_notify-validate';
     foreach ($_POST as $key => $value) {
@@ -74,52 +72,60 @@ if (!isset($_POST["txn_id"]) && !isset($_POST["txn_type"])){
     $header = "POST /cgi-bin/webscr HTTP/1.0\r\n";
     $header .= "Content-Type: application/x-www-form-urlencoded\r\n";
     $header .= "Content-Length: " . strlen($req) . "\r\n\r\n";
-
+ 
     $fp = fsockopen ('ssl://www.sandbox.paypal.com', 443, $errno, $errstr, 30);
 
     if (!$fp) {
         // HTTP ERROR
-
     } else {
-        fputs($fp, $header . $req);
-        while (!feof($fp)) {
-            $res = fgets ($fp, 1024);
-            if (strcmp($res, "VERIFIED") == 0) {
+        
+    //    fputs($fp, $header . $req);
+    //    while (!feof($fp)) {
+    //        $res = fgets ($fp, 1024);
+    //        if (strcmp($res, "VERIFIED") == 0) {
 
                 // Used for debugging
-                // mail('user@domain.com', 'PAYPAL POST - VERIFIED RESPONSE', print_r($post, true));
+                 
 
                 // Validate payment (Check unique txnid & correct price)
                 $valid_txnid = check_txnid($data['txn_id']);
                 $valid_price = check_price($data['payment_amount'], $data['item_number']);
+
                 // PAYMENT VALIDATED & VERIFIED!
                 if ($valid_txnid && $valid_price) {
-
+            
                     $orderid = updatePayments($data);
 
                     if ($orderid) {
-                        // Payment has been made & successfully inserted into the Database
-                    } else {
+                        //database updated successfully
+                        mail('gsher2512@gmail.com', 'Transaction Posted', 'Good work!', 'from you');
+                    } 
+                    else {
+                        
                         // Error inserting into DB
                         // E-mail admin or alert user
-                        // mail('user@domain.com', 'PAYPAL POST - INSERT INTO DB WENT WRONG', print_r($data, true));
+                         mail('gsher2512@gmail.com', 'PAYPAL POST - INSERT INTO DB WENT WRONG', 'You suck!', "from you");
                     }
                 } else {
                     // Payment made but data has been changed
                     // E-mail admin or alert user
+                    mail('gsher2512@gmail.com', 'User '.$data['payer_email'].' did not pay the correct amount', print_r($data, true));
                 }
 
-            } else if (strcmp ($res, "INVALID") == 0) {
-
+    //        } else if (strcmp ($res, "INVALID") == 0) {
+    //            mail('gsher2512@gmail.com', "Didn't work after FsockOpen", "yea, look at the subject, dummy", 'from you');
                 // PAYMENT INVALID & INVESTIGATE MANUALY!
                 // E-mail admin or alert user
 
                 // Used for debugging
                 //@mail("user@domain.com", "PAYPAL DEBUGGING", "Invalid Response
-                $data =
-                "<pre>".print_r($post, true)."</pre>";
-            }
-        }
+    //            $data =
+    //            "<pre>".print_r($post, true)."</pre>";
+    //        }
+    //        else{
+    //            mail('gsher2512@gmail.com','nothing works anymore', 'hello darkness my old friend ' . $res . ' stupid.', 'from you');
+    //        }
+    //    }
     fclose ($fp);
     }
 }  

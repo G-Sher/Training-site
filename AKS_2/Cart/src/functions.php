@@ -2,9 +2,7 @@
 
 //Functions
 require_once('scFunctions.php');
-
-//Classes
-
+require 'scDB.php';
 
 function submitForm()
 {
@@ -83,15 +81,15 @@ function getUsers()
 }
 
 function check_txnid($tnxid){
-    global $link;
+    
     return true;
-    $valid_txnid = true;
+//    $valid_txnid = true;
     //get result set
-    $sql = mysql_query("SELECT * FROM `payments` WHERE txnid = '$tnxid'", $link);
-    if ($row = mysql_fetch_array($sql)) {
-        $valid_txnid = false;
-    }
-    return $valid_txnid;
+//    $sql = mysqi_query($mysqli,"SELECT * FROM `payments` WHERE txnid = '$tnxid'");
+//   if ($row = mysqli_fetch_array($sql)) {
+//        $valid_txnid = false;
+//    }
+//    return $valid_txnid;
 }
 
 function check_price($price, $id){
@@ -99,9 +97,9 @@ function check_price($price, $id){
     //you could use the below to check whether the correct price has been paid for the product
 
     /*
-    $sql = mysql_query("SELECT amount FROM `products` WHERE id = '$id'");
-    if (mysql_num_rows($sql) != 0) {
-        while ($row = mysql_fetch_array($sql)) {
+    $sql = mysqli_query("SELECT amount FROM `products` WHERE id = '$id'");
+    if (mysqli_num_rows($sql) != 0) {
+        while ($row = mysqli_fetch_array($sql)) {
             $num = (float)$row['amount'];
             if($num == $price){
                 $valid_price = true;
@@ -114,17 +112,11 @@ function check_price($price, $id){
 }
 
 function updatePayments($data){
-    global $link;
+	require 'scDB.php';
 
     if (is_array($data)) {
-        $sql = mysql_query("INSERT INTO `payments` (txnid, payment_amount, payment_status, itemid, createdtime) VALUES (
-                '".$data['txn_id']."' ,
-                '".$data['payment_amount']."' ,
-                '".$data['payment_status']."' ,
-                '".$data['item_number']."' ,
-                '".date("Y-m-d H:i:s")."'
-                )", $link);
-        return mysql_insert_id($link);
+        $sql = mysqli_query($mysqli, "INSERT INTO payments (txnid, payment_amount, payment_status, itemid, createdtime) VALUES ('$data[txn_id]' ,'$data[payment_amount]' ,'$data[payment_status]' ,'$data[item_number]', 0)");
+        return mysqli_insert_id($mysqli);
     }
 }
 ?>

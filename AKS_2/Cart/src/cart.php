@@ -2,7 +2,7 @@
 //create, populate, connect to DB
 require "scDB.php";
 include "scFunctions.php";
-//session_start();
+
 
 $email = $_SESSION['email'];
 $query = mysqli_query($mysqli, "SELECT * FROM users WHERE email = '$email'");
