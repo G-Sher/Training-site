@@ -11,5 +11,6 @@
 	$grab = mysqli_query($mysqli, "SELECT * FROM users WHERE email = '$email';");
 	$id = mysqli_fetch_array($grab);
 
-	$query = mysqli_query($mysqli, "UPDATE test_results SET ".$test." = '$results' WHERE user_id='$id[id]';");
+	$query = mysqli_query($mysqli, "UPDATE test_results SET ".$test." = '$results', testsPassed = (testsPassed + 1) WHERE user_id='$id[id]';");
+	//$add = mysqli_query($mysqli, "UPDATE test_results SET testsPassed += (testsPassed + 1) WHERE user_id = '$id[id]';");
 ?>

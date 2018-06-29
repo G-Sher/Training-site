@@ -27,10 +27,15 @@ require 'db.php';
 		$last_name = $_SESSION['last_name'];
 		$email = $_SESSION['email'];
 		$active = $_SESSION['active'];
-		$_SESSION['message'] = ""; 
+		$_SESSION['message'] = "";
+		$id = $_SESSION['id']; 
 
 	$column_count = 14 ;	//15 letters for A to O
-	$complete_count = 1 ; //needs to be updated from a MySQL query
+	$query = mysqli_query($mysqli, "SELECT * FROM test_results WHERE user_id = '$id'") ; //needs to be updated from a MySQL query
+	$count = mysqli_fetch_array($query);
+
+	$complete_count = intVal($count['testsPassed']);
+	
 	/*
 	if(mysqli_query($mysqli, "SELECT * FROM test_results WHERE email = ".$_SESSION['email']." AND ".$i."_result = '1'") > 0){
 		$complete_count += 1; //how do we pull the $_session info into this page?
@@ -96,7 +101,7 @@ require 'db.php';
 	$testvalue = 'complete' ; //leave here to reset the $testvalue variable before checking the DB. ensures it will not get accidentally approved
 //populate the dropdown menu with MySql results - does not work yet
 
-for ($i = $letterarray[0]; $i < $letterarray[$complete_count+1] ; $i++){
+for ($i = $letterarray[$complete_count]; $i < $letterarray[$complete_count+1] ; $i++){
 		if ($i == $letterarray[$complete_count]){
 			$testvalue = 'incomplete';
 		}

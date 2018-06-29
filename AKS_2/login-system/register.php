@@ -3,7 +3,7 @@
    and sends account confirmation email message
  */
 require 'db.php';
-
+session_start();
 // Set session variables to be used on profile.php page
 $_SESSION['email'] = $_POST['email'];
 $_SESSION['first_name'] = $_POST['firstname'];
@@ -37,6 +37,7 @@ else { // Email doesn't already exist in a database, proceed...
 	$query = mysqli_query($mysqli, "SELECT * FROM users WHERE hash = '$hash'");
 	$id = mysqli_fetch_array($query);
 	$result = mysqli_query($mysqli, "INSERT INTO test_results (user_id) VALUES ('$id[id]')");
+	$_SESSION['id'] = $id['id'];
 	
     // Add user to the database
     if ($sql){
@@ -44,7 +45,7 @@ else { // Email doesn't already exist in a database, proceed...
 			$_SESSION['logged_in'] = true; // So we know the user has logged in
 			$_SESSION['message'] =
 					"Confirmation link has been sent to $email, please verify
-					 your account by clicking on the link in the message!";
+					your account by clicking on the link in the message!";
 					 
 			$to      = $email;
 			$subject = 'Account Verification (geoffsher.com )';
